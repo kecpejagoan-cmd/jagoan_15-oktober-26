@@ -560,6 +560,48 @@
         }
 
         /* ============================================
+           VIDEO FLOATING DI POJOK KANAN BAWAH
+           UKURAN 2X LEBIH BESAR (440px)
+           ============================================ */
+        .video-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 220px; /* Ukuran 2x dari sebelumnya (220px) */
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-floating:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .video-floating video {
+            width: 100%;
+            height: 200px; /* Proporsional 16:9 untuk lebar 440px */
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-floating .video-label {
+            background: rgba(26, 92, 158, 0.95);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            padding: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
            AREA CETAK - UKURAN 10cm x 15cm
            FONT 20px + GARIS RAPI
            ============================================ */
@@ -596,7 +638,7 @@
                 color: #000;
             }
 
-            .bg-slider, .card, .loading-overlay { display: none !important; }
+            .bg-slider, .card, .loading-overlay, .video-floating { display: none !important; }
 
             .ticket-wrapper {
                 width: 100%;
@@ -715,18 +757,14 @@
             .print-detail td {
                 padding: 5px 3px;
                 vertical-align: middle;
-                font-size: 20px; /* Ukuran 20px */
+                font-size: 20px;
                 line-height: 1.2;
                 color: #000;
                 word-wrap: break-word;
-                /* Garis di bawah setiap baris */
                 border-bottom: 1px solid #999;
             }
 
-            /* Hilangkan garis di baris terakhir */
-            .print-detail tr:last-child td {
-                border-bottom: none;
-            }
+            .print-detail tr:last-child td { border-bottom: none; }
 
             .print-detail td:first-child {
                 font-weight: 700;
@@ -771,6 +809,15 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .video-floating {
+                width: 280px; /* Ukuran lebih kecil di tablet */
+            }
+            .video-floating video {
+                height: 158px;
+            }
+        }
+
         @media (max-width: 480px) {
             .card { margin: 15px; max-width: 100%; }
             .card-body { padding: 20px; }
@@ -786,6 +833,15 @@
             .spinner-container { width: 70px; height: 70px; }
             .spinner-center { font-size: 22px; }
             .loading-text { font-size: 14px; }
+
+            /* Video lebih kecil di HP agar tidak menutupi form */
+            .video-floating {
+                width: 180px;
+                bottom: 10px;
+                right: 10px;
+            }
+            .video-floating video { height: 100px; }
+            .video-floating .video-label { font-size: 10px; padding: 4px; }
         }
     </style>
 </head>
@@ -797,6 +853,17 @@
         <div class="bg-slide"></div>
     </div>
 
+<div class="video-floating">
+    <iframe 
+        src="https://www.youtube-nocookie.com/embed/7G5_rrreg4w?autoplay=1&mute=1&loop=1&playlist=7G5_rrreg4w&controls=0&modestbranding=1&rel=0" 
+        title="Video Panduan JAGOAN"
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+    <div class="video-label">🎬 Video Panduan</div>
+</div>
     <div class="card">
         <div class="card-header">
             <h1 class="brand-title">JAGOAN</h1>
