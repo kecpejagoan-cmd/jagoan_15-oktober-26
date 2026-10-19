@@ -561,13 +561,12 @@
 
         /* ============================================
            VIDEO FLOATING DI POJOK KANAN BAWAH
-           UKURAN 2X LEBIH BESAR (440px)
            ============================================ */
         .video-floating {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 220px; /* Ukuran 2x dari sebelumnya (220px) */
+            width: 220px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 12px;
             overflow: hidden;
@@ -584,11 +583,11 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
-        .video-floating video {
+        .video-floating iframe {
             width: 100%;
-            height: 200px; /* Proporsional 16:9 untuk lebar 440px */
-            object-fit: cover;
+            height: 124px;
             display: block;
+            border: none;
         }
 
         .video-floating .video-label {
@@ -603,7 +602,6 @@
 
         /* ============================================
            AREA CETAK - UKURAN 10cm x 15cm
-           FONT 20px + GARIS RAPI
            ============================================ */
         #print-area { display: none; }
 
@@ -811,9 +809,9 @@
 
         @media (max-width: 768px) {
             .video-floating {
-                width: 280px; /* Ukuran lebih kecil di tablet */
+                width: 280px;
             }
-            .video-floating video {
+            .video-floating iframe {
                 height: 158px;
             }
         }
@@ -834,13 +832,12 @@
             .spinner-center { font-size: 22px; }
             .loading-text { font-size: 14px; }
 
-            /* Video lebih kecil di HP agar tidak menutupi form */
             .video-floating {
                 width: 180px;
                 bottom: 10px;
                 right: 10px;
             }
-            .video-floating video { height: 100px; }
+            .video-floating iframe { height: 100px; }
             .video-floating .video-label { font-size: 10px; padding: 4px; }
         }
     </style>
@@ -864,6 +861,7 @@
     </iframe>
     <div class="video-label">🎬 Video Panduan</div>
 </div>
+
     <div class="card">
         <div class="card-header">
             <h1 class="brand-title">JAGOAN</h1>
@@ -873,7 +871,7 @@
                 <span class="line"></span>
             </div>
             <span class="subtitle">Jalur Antrian Terintegrasi Online Pejagoan</span>
-             </div>
+        </div>
 
         <div class="card-body" id="form-section">
             <form id="queueForm" onsubmit="kirimData(event)">
@@ -885,7 +883,8 @@
 
                 <div class="form-group">
                     <label>NIK (16 Digit)</label>
-                    <input type="number" name="nik" class="form-control" placeholder="Masukkan 16 digit NIK" required>
+                    <input type="text" name="nik" id="inputNik" class="form-control" placeholder="Masukkan 16 digit NIK" required maxlength="16" inputmode="numeric" pattern="\d{16}" title="NIK harus 16 digit angka" oninput="validateNik(this)">
+                    <small id="nikError" style="display: none; color: #e74c3c; font-size: 12px; margin-top: 5px; font-weight: 600;"></small>
                 </div>
 
                 <div class="row">
@@ -1067,7 +1066,7 @@
 
             <div class="print-footer">
                 <p class="print-note">Tiket Bukti Antrean</p>
-                <p><b></b>Made by Tim Pelayanan Kec Pejagoan</b></p>
+                <p>Silakan menunggu panggilan</p>
                 <p class="print-date" id="printDate">-</p>
                 <div class="cut-line">✂ - - - - - - (-) - - - - - - - - - -</div>
             </div>
@@ -1147,6 +1146,44 @@
             return selected;
         }
 
+        // --- VALIDASI NIK ---
+        function validateNik(input) {
+            const errorEl = document.getElementById('nikError');
+            // Hanya izinkan angka
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            const value = input.value;
+
+            if (value.length === 0) {
+                errorEl.style.display = 'none';
+                input.style.borderColor = '#e0e0e0';
+                return false;
+            }
+
+            if (value.length < 16) {
+                errorEl.textContent = `NIK kurang ${16 - value.length} digit lagi (${value.length}/16)`;
+                errorEl.style.display = 'block';
+                errorEl.style.color = '#e74c3c';
+                input.style.borderColor = '#e74c3c';
+                return false;
+            }
+
+            if (value.length === 16) {
+                errorEl.textContent = '✓ NIK valid (16 digit)';
+                errorEl.style.display = 'block';
+                errorEl.style.color = '#27ae60';
+                input.style.borderColor = '#27ae60';
+                return true;
+            }
+
+            // Lebih dari 16 (seharusnya tidak terjadi karena maxlength, tapi jaga-jaga)
+            errorEl.textContent = 'NIK tidak boleh lebih dari 16 digit';
+            errorEl.style.display = 'block';
+            errorEl.style.color = '#e74c3c';
+            input.style.borderColor = '#e74c3c';
+            return false;
+        }
+
         // --- LOADING CONTROL ---
         function showLoading() {
             document.getElementById('loadingOverlay').classList.add('show');
@@ -1167,6 +1204,21 @@
                 dropdownPanel.classList.add('open');
                 return;
             }
+
+            // ===== VALIDASI NIK =====
+            const nikInput = document.getElementById('inputNik');
+            const nikValue = nikInput.value.trim();
+            const nikError = document.getElementById('nikError');
+
+            if (!/^\d{16}$/.test(nikValue)) {
+                nikError.textContent = 'NIK harus terdiri dari 16 digit angka';
+                nikError.style.display = 'block';
+                nikError.style.color = '#e74c3c';
+                nikInput.style.borderColor = '#e74c3c';
+                nikInput.focus();
+                return; // Batalkan submit
+            }
+            // =========================
 
             const btn = document.getElementById('btnSubmit');
             btn.innerText = "Memproses...";
@@ -1250,7 +1302,16 @@
             document.getElementById('queueForm').reset();
             document.getElementById('result-section').style.display = 'none';
             document.getElementById('form-section').style.display = 'block';
-            
+
+            // Reset error NIK
+            const nikError = document.getElementById('nikError');
+            if (nikError) {
+                nikError.style.display = 'none';
+                nikError.style.color = '#e74c3c';
+            }
+            const nikInput = document.getElementById('inputNik');
+            if (nikInput) nikInput.style.borderColor = '#e0e0e0';
+
             dropdownText.textContent = '-- Pilih Layanan --';
             dropdownTrigger.classList.remove('has-value', 'active');
             dropdownPanel.classList.remove('open');
