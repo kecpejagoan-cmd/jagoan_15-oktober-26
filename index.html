@@ -397,6 +397,33 @@
             100% { transform: scale(1); }
         }
 
+        /* ✅ STYLE NOMOR REGISTER */
+        .register-box {
+            margin: 15px 0 5px;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .register-box .register-label {
+            font-size: 11px;
+            color: #1e8449;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+
+        .register-box .register-value {
+            font-size: 30px;
+            font-weight: 900;
+            color: #27ae60;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
         .detail-box {
             background: #f8faff;
             border: 1px solid #d0e3ff;
@@ -733,13 +760,32 @@
                 letter-spacing: 2px;
             }
 
-            /* ====== DETAIL - FONT 20px DENGAN GARIS ====== */
+            /* Register Badge (cetak) */
+            .print-register-badge {
+                background: #f0f0f0;
+                border: 1.5px solid #000;
+                border-radius: 4px;
+                padding: 2px 8px;
+                margin: 0.06cm auto;
+                display: inline-block;
+                font-size: 9px;
+                font-weight: 700;
+                color: #000;
+            }
+
+            .print-register-badge .label-reg {
+                font-weight: 500;
+                color: #333;
+                margin-right: 3px;
+            }
+
+            /* ====== DETAIL ====== */
             .print-detail {
                 text-align: left;
                 margin: 0.1cm 0;
                 border-top: 1.5px solid #000;
                 border-bottom: 1.5px solid #000;
-                padding: 0.1cm 0;
+                padding: 0.08cm 0;
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
@@ -753,9 +799,9 @@
             }
 
             .print-detail td {
-                padding: 5px 3px;
+                padding: 3px 3px;
                 vertical-align: middle;
-                font-size: 20px;
+                font-size: 16px;
                 line-height: 1.2;
                 color: #000;
                 word-wrap: break-word;
@@ -767,12 +813,12 @@
             .print-detail td:first-child {
                 font-weight: 700;
                 width: 32%;
-                font-size: 20px;
+                font-size: 16px;
             }
 
             .print-detail td:last-child {
                 font-weight: 600;
-                font-size: 20px;
+                font-size: 16px;
                 width: 68%;
             }
 
@@ -808,12 +854,8 @@
         }
 
         @media (max-width: 768px) {
-            .video-floating {
-                width: 280px;
-            }
-            .video-floating iframe {
-                height: 158px;
-            }
+            .video-floating { width: 280px; }
+            .video-floating iframe { height: 158px; }
         }
 
         @media (max-width: 480px) {
@@ -822,6 +864,7 @@
             .row { flex-direction: column; gap: 0; }
             .ticket-number { font-size: 55px; min-width: 160px; }
             .detail-value { font-size: 13px; }
+            .register-box .register-value { font-size: 24px; }
 
             .card-header { padding: 25px 20px 20px; }
             .brand-title { font-size: 34px; letter-spacing: 4px; }
@@ -832,11 +875,7 @@
             .spinner-center { font-size: 22px; }
             .loading-text { font-size: 14px; }
 
-            .video-floating {
-                width: 180px;
-                bottom: 10px;
-                right: 10px;
-            }
+            .video-floating { width: 180px; bottom: 10px; right: 10px; }
             .video-floating iframe { height: 100px; }
             .video-floating .video-label { font-size: 10px; padding: 4px; }
         }
@@ -921,71 +960,19 @@
                             <span class="dropdown-arrow">▲</span>
                         </div>
                         <div class="dropdown-panel" id="dropdownPanel">
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Aktivasi IKD">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Aktivasi IKD</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Penerbitan Kartu Keluarga">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Penerbitan Kartu Keluarga</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Pindah Datang">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Pindah Datang</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Penerbitan Akta Kelahiran">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Penerbitan Akta Kelahiran</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Penerbitan Akta Kematian">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Penerbitan Akta Kematian</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Pengantar SKCK">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Pengantar SKCK</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Pengantar dan Dispensasi Nikah">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Pengantar dan Dispensasi Nikah</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Ahli Waris Tanah">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Ahli Waris Tanah</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Pengantar BBM">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Pengantar BBM</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Legalisasi Umum">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Legalisasi Umum</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Perekaman KTP El">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Perekaman KTP El</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Pelayanan Pencetakan KIA/KTP">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Pelayanan Pencetakan KIA/KTP</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="layanan" value="Konsultasi Desa">
-                                <span class="checkmark"></span>
-                                <span class="service-text">Konsultasi Desa</span>
-                            </label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Aktivasi IKD"><span class="checkmark"></span><span class="service-text">Aktivasi IKD</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Penerbitan Kartu Keluarga"><span class="checkmark"></span><span class="service-text">Penerbitan Kartu Keluarga</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Pindah Datang"><span class="checkmark"></span><span class="service-text">Pelayanan Pindah Datang</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Penerbitan Akta Kelahiran"><span class="checkmark"></span><span class="service-text">Penerbitan Akta Kelahiran</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Penerbitan Akta Kematian"><span class="checkmark"></span><span class="service-text">Penerbitan Akta Kematian</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Pengantar SKCK"><span class="checkmark"></span><span class="service-text">Pelayanan Pengantar SKCK</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Pengantar dan Dispensasi Nikah"><span class="checkmark"></span><span class="service-text">Pelayanan Pengantar dan Dispensasi Nikah</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Ahli Waris Tanah"><span class="checkmark"></span><span class="service-text">Pelayanan Ahli Waris Tanah</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Pengantar BBM"><span class="checkmark"></span><span class="service-text">Pelayanan Pengantar BBM</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Legalisasi Umum"><span class="checkmark"></span><span class="service-text">Pelayanan Legalisasi Umum</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Perekaman KTP El"><span class="checkmark"></span><span class="service-text">Pelayanan Perekaman KTP El</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Pelayanan Pencetakan KIA/KTP"><span class="checkmark"></span><span class="service-text">Pelayanan Pencetakan KIA/KTP</span></label>
+                            <label class="service-option"><input type="checkbox" name="layanan" value="Konsultasi Desa"><span class="checkmark"></span><span class="service-text">Konsultasi Desa</span></label>
                         </div>
                     </div>
                 </div>
@@ -997,7 +984,13 @@
         <div class="result-container" id="result-section">
             <h3>Antrean Berhasil Diambil</h3>
             <div class="ticket-number" id="nomorAntrean">-</div>
-            
+
+            <!-- ✅ NOMOR REGISTER -->
+            <div class="register-box">
+                <div class="register-label">Nomor Register</div>
+                <div class="register-value" id="nomorRegister">-</div>
+            </div>
+
             <div class="detail-box">
                 <div class="detail-item">
                     <span class="detail-label">Nama</span>
@@ -1007,9 +1000,11 @@
                     <span class="detail-label">Layanan</span>
                     <span class="detail-value" id="detailLayanan">-</span>
                 </div>
+                <div class="detail-item">
+                    <span class="detail-label">No. Register</span>
+                    <span class="detail-value" id="detailRegister">-</span>
+                </div>
             </div>
-
-            <p class="ticket-info">Silakan menunggu panggilan.<br>Permintaan layanan anda segera kami proses :)</p>
             
             <button class="btn-submit btn-print" onclick="cetakTiket()">🖨️ Cetak Nomor Antrean</button>
             <button class="btn-submit" onclick="resetForm()" style="background: #666; margin-top: 10px;">Kembali ke Awal</button>
@@ -1024,9 +1019,7 @@
             <div class="spinner-ring"></div>
             <div class="spinner-center">🐔</div>
         </div>
-        <div class="loading-text">
-            Memproses Antrean<span class="loading-dots"></span>
-        </div>
+        <div class="loading-text">Memproses Antrean<span class="loading-dots"></span></div>
         <div class="loading-subtext">Mohon tunggu sebentar</div>
         <div class="loading-progress"></div>
     </div>
@@ -1054,6 +1047,13 @@
                 <div class="print-number" id="printNomor">-</div>
             </div>
 
+            <div style="text-align: center;">
+                <div class="print-register-badge">
+                    <span class="label-reg">No. Register:</span>
+                    <span id="printRegister">-</span>
+                </div>
+            </div>
+
             <div class="print-detail">
                 <table>
                     <tr><td>Nama</td><td>: <span id="printNama">-</span></td></tr>
@@ -1074,7 +1074,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxM4sKidcgsD9xKdZj_mXVm5q3pP8ER6sqDp5yENbLiG2ihmmhx00b7NpPIVZeagas/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyybCM8r1f6bq2_q6JE3y5_LFoc2bB3IoPSgU6HLjq_oS-cmL_9oIE7Y9wG6UJPlPw/exec';
 
         // --- BACKGROUND SLIDER ---
         let currentSlide = 0;
@@ -1111,20 +1111,15 @@
         checkboxes.forEach(cb => {
             cb.addEventListener('change', function() {
                 const parentLabel = this.closest('.service-option');
-                if (this.checked) {
-                    parentLabel.classList.add('checked');
-                } else {
-                    parentLabel.classList.remove('checked');
-                }
+                if (this.checked) parentLabel.classList.add('checked');
+                else parentLabel.classList.remove('checked');
                 updateDropdownText();
             });
         });
 
         function updateDropdownText() {
             const selected = [];
-            checkboxes.forEach(cb => {
-                if (cb.checked) selected.push(cb.value);
-            });
+            checkboxes.forEach(cb => { if (cb.checked) selected.push(cb.value); });
 
             if (selected.length === 0) {
                 dropdownText.textContent = '-- Pilih Layanan --';
@@ -1140,18 +1135,14 @@
 
         function getSelectedLayanan() {
             const selected = [];
-            checkboxes.forEach(cb => {
-                if (cb.checked) selected.push(cb.value);
-            });
+            checkboxes.forEach(cb => { if (cb.checked) selected.push(cb.value); });
             return selected;
         }
 
         // --- VALIDASI NIK ---
         function validateNik(input) {
             const errorEl = document.getElementById('nikError');
-            // Hanya izinkan angka
             input.value = input.value.replace(/[^0-9]/g, '');
-
             const value = input.value;
 
             if (value.length === 0) {
@@ -1159,7 +1150,6 @@
                 input.style.borderColor = '#e0e0e0';
                 return false;
             }
-
             if (value.length < 16) {
                 errorEl.textContent = `NIK kurang ${16 - value.length} digit lagi (${value.length}/16)`;
                 errorEl.style.display = 'block';
@@ -1167,7 +1157,6 @@
                 input.style.borderColor = '#e74c3c';
                 return false;
             }
-
             if (value.length === 16) {
                 errorEl.textContent = '✓ NIK valid (16 digit)';
                 errorEl.style.display = 'block';
@@ -1175,8 +1164,6 @@
                 input.style.borderColor = '#27ae60';
                 return true;
             }
-
-            // Lebih dari 16 (seharusnya tidak terjadi karena maxlength, tapi jaga-jaga)
             errorEl.textContent = 'NIK tidak boleh lebih dari 16 digit';
             errorEl.style.display = 'block';
             errorEl.style.color = '#e74c3c';
@@ -1185,13 +1172,8 @@
         }
 
         // --- LOADING CONTROL ---
-        function showLoading() {
-            document.getElementById('loadingOverlay').classList.add('show');
-        }
-
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.remove('show');
-        }
+        function showLoading() { document.getElementById('loadingOverlay').classList.add('show'); }
+        function hideLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
 
         // --- KIRIM DATA ---
         async function kirimData(event) {
@@ -1205,7 +1187,6 @@
                 return;
             }
 
-            // ===== VALIDASI NIK =====
             const nikInput = document.getElementById('inputNik');
             const nikValue = nikInput.value.trim();
             const nikError = document.getElementById('nikError');
@@ -1216,14 +1197,12 @@
                 nikError.style.color = '#e74c3c';
                 nikInput.style.borderColor = '#e74c3c';
                 nikInput.focus();
-                return; // Batalkan submit
+                return;
             }
-            // =========================
 
             const btn = document.getElementById('btnSubmit');
             btn.innerText = "Memproses...";
             btn.disabled = true;
-
             showLoading();
 
             const form = document.getElementById('queueForm');
@@ -1255,7 +1234,6 @@
                 });
 
                 const result = await response.json();
-
                 await minLoadingTime;
 
                 if (result.status === 'success') {
@@ -1265,17 +1243,25 @@
                     const resultSection = document.getElementById('result-section');
                     
                     document.getElementById('nomorAntrean').innerText = result.nomorAntrean;
+
+                    // ✅ Nomor Register
+                    const nomorRegister = result.nomorRegister || '-';
+                    document.getElementById('nomorRegister').innerText = nomorRegister;
+
                     document.getElementById('detailNama').innerText = dataObj.nama;
                     document.getElementById('detailLayanan').innerText = dataObj.layanan;
+                    document.getElementById('detailRegister').innerText = nomorRegister;
                     
                     resultSection.style.display = 'block';
 
+                    // Isi area cetak
                     document.getElementById('printNomor').innerText = result.nomorAntrean;
                     document.getElementById('printNama').innerText = dataObj.nama;
                     document.getElementById('printNik').innerText = dataObj.nik;
                     document.getElementById('printDesa').innerText = dataObj.desa;
                     document.getElementById('printRtRw').innerText = dataObj.rtRw;
                     document.getElementById('printLayanan').innerText = dataObj.layanan;
+                    document.getElementById('printRegister').innerText = nomorRegister; // ✅
                     
                     document.getElementById('printDateInput').innerText = tanggalInput;
                     document.getElementById('printDate').innerText = "Dicetak: " + tanggalInput;
@@ -1303,7 +1289,14 @@
             document.getElementById('result-section').style.display = 'none';
             document.getElementById('form-section').style.display = 'block';
 
-            // Reset error NIK
+            // ✅ Reset nomor register
+            const regEl = document.getElementById('nomorRegister');
+            if (regEl) regEl.innerText = '-';
+            const detailReg = document.getElementById('detailRegister');
+            if (detailReg) detailReg.innerText = '-';
+            const printReg = document.getElementById('printRegister');
+            if (printReg) printReg.innerText = '-';
+
             const nikError = document.getElementById('nikError');
             if (nikError) {
                 nikError.style.display = 'none';
