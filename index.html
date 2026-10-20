@@ -357,15 +357,6 @@
 
         .btn-print:hover { box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5); }
 
-        /* ✅ TOMBOL SUARA */
-        .btn-sound {
-            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
-            margin-top: 10px;
-        }
-
-        .btn-sound:hover { box-shadow: 0 8px 25px rgba(142, 68, 173, 0.5); }
-
         /* --- HASIL --- */
         .result-container {
             display: none;
@@ -769,23 +760,25 @@
                 letter-spacing: 2px;
             }
 
-            /* Register Badge (cetak) */
+            /* ✅ Register Badge (cetak) - FONT 15px */
             .print-register-badge {
                 background: #f0f0f0;
-                border: 1.5px solid #000;
-                border-radius: 4px;
-                padding: 2px 8px;
-                margin: 0.06cm auto;
+                border: 2px solid #000;
+                border-radius: 6px;
+                padding: 3px 12px;
+                margin: 0.08cm auto;
                 display: inline-block;
-                font-size: 9px;
-                font-weight: 700;
+                font-size: 15px;
+                font-weight: 900;
                 color: #000;
+                letter-spacing: 1px;
             }
 
             .print-register-badge .label-reg {
-                font-weight: 500;
+                font-weight: 600;
                 color: #333;
-                margin-right: 3px;
+                margin-right: 5px;
+                font-size: 12px;
             }
 
             /* ====== DETAIL ====== */
@@ -1016,10 +1009,6 @@
             </div>
             
             <button class="btn-submit btn-print" onclick="cetakTiket()">🖨️ Cetak Nomor Antrean</button>
-
-            <!-- ✅ TOMBOL PUTAR SUARA LAGI -->
-            <button class="btn-submit btn-sound" onclick="putarSuara('Silakan cetak nomor antrean anda')">🔊 Putar Suara Lagi</button>
-
             <button class="btn-submit" onclick="resetForm()" style="background: #666; margin-top: 10px;">Kembali ke Awal</button>
         </div>
     </div>
@@ -1197,7 +1186,6 @@
                 return;
             }
 
-            // Batalkan suara yang sedang berjalan
             window.speechSynthesis.cancel();
 
             const ucapan = new SpeechSynthesisUtterance(teks);
@@ -1320,9 +1308,7 @@
                     document.getElementById('printDateInput').innerText = tanggalInput;
                     document.getElementById('printDate').innerText = "Dicetak: " + tanggalInput;
 
-                    // ============================================
                     // 🔊 SUARA OTOMATIS SAAT NOMOR KELUAR
-                    // ============================================
                     setTimeout(() => {
                         putarSuara("Silakan cetak nomor antrean anda");
                     }, 500);
