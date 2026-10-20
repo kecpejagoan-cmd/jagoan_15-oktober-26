@@ -357,6 +357,15 @@
 
         .btn-print:hover { box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5); }
 
+        /* ✅ TOMBOL SUARA */
+        .btn-sound {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
+            margin-top: 10px;
+        }
+
+        .btn-sound:hover { box-shadow: 0 8px 25px rgba(142, 68, 173, 0.5); }
+
         /* --- HASIL --- */
         .result-container {
             display: none;
@@ -1007,6 +1016,10 @@
             </div>
             
             <button class="btn-submit btn-print" onclick="cetakTiket()">🖨️ Cetak Nomor Antrean</button>
+
+            <!-- ✅ TOMBOL PUTAR SUARA LAGI -->
+            <button class="btn-submit btn-sound" onclick="putarSuara('Silakan cetak nomor antrean anda')">🔊 Putar Suara Lagi</button>
+
             <button class="btn-submit" onclick="resetForm()" style="background: #666; margin-top: 10px;">Kembali ke Awal</button>
         </div>
     </div>
@@ -1175,6 +1188,47 @@
         function showLoading() { document.getElementById('loadingOverlay').classList.add('show'); }
         function hideLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
 
+        // ============================================
+        // 🔊 FUNGSI SUARA OTOMATIS (Text-to-Speech)
+        // ============================================
+        function putarSuara(teks) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('Browser tidak mendukung Speech Synthesis');
+                return;
+            }
+
+            // Batalkan suara yang sedang berjalan
+            window.speechSynthesis.cancel();
+
+            const ucapan = new SpeechSynthesisUtterance(teks);
+            ucapan.lang = 'id-ID';
+            ucapan.rate = 0.9;
+            ucapan.pitch = 1;
+            ucapan.volume = 1;
+
+            const pilihSuara = () => {
+                const voices = window.speechSynthesis.getVoices();
+                const suaraID = voices.find(v => v.lang === 'id-ID' || v.lang.startsWith('id'));
+                if (suaraID) ucapan.voice = suaraID;
+                window.speechSynthesis.speak(ucapan);
+            };
+
+            if (window.speechSynthesis.getVoices().length === 0) {
+                window.speechSynthesis.onvoiceschanged = pilihSuara;
+            } else {
+                pilihSuara();
+            }
+        }
+
+        // Warmup agar browser siap memutar suara
+        document.addEventListener('DOMContentLoaded', function() {
+            if ('speechSynthesis' in window) {
+                const warmup = new SpeechSynthesisUtterance('');
+                warmup.volume = 0;
+                window.speechSynthesis.speak(warmup);
+            }
+        });
+
         // --- KIRIM DATA ---
         async function kirimData(event) {
             event.preventDefault();
@@ -1261,10 +1315,17 @@
                     document.getElementById('printDesa').innerText = dataObj.desa;
                     document.getElementById('printRtRw').innerText = dataObj.rtRw;
                     document.getElementById('printLayanan').innerText = dataObj.layanan;
-                    document.getElementById('printRegister').innerText = nomorRegister; // ✅
+                    document.getElementById('printRegister').innerText = nomorRegister;
                     
                     document.getElementById('printDateInput').innerText = tanggalInput;
                     document.getElementById('printDate').innerText = "Dicetak: " + tanggalInput;
+
+                    // ============================================
+                    // 🔊 SUARA OTOMATIS SAAT NOMOR KELUAR
+                    // ============================================
+                    setTimeout(() => {
+                        putarSuara("Silakan cetak nomor antrean anda");
+                    }, 500);
 
                 } else {
                     hideLoading();
@@ -1312,6 +1373,11 @@
             document.querySelectorAll('.service-option').forEach(opt => {
                 opt.classList.remove('checked');
             });
+
+            // 🔇 Hentikan suara jika masih berbunyi
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
         }
     </script>
 </body>
